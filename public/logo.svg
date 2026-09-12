@@ -1,0 +1,17 @@
+<svg viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- sk (Green) -->
+  <text x="2" y="39" font-family="'Sora', 'Inter', -apple-system, sans-serif" font-weight="800" font-size="36" letter-spacing="-0.03em" fill="#22B24C">sk</text>
+  <!-- i - Red dot -->
+  <circle cx="50" cy="14" r="4.5" fill="#E52328"/>
+  <!-- i - Red stem -->
+  <rect x="46" y="21" width="8" height="19" rx="2" fill="#E52328"/>
+  <!-- ll (Green) with styled tops -->
+  <path d="M60 40V14C60 11.5 62 9.5 66 8.5C66.5 8.5 67 9 67 9.5V40H60Z" fill="#22B24C"/>
+  <path d="M70 40V14C70 11.5 72 9.5 76 8.5C76.5 8.5 77 9 77 9.5V40H70Z" fill="#22B24C"/>
+  <!-- UP (Green) -->
+  <text x="82" y="39" font-family="'Sora', 'Inter', -apple-system, sans-serif" font-weight="800" font-size="36" letter-spacing="-0.02em" fill="#22B24C">UP</text>
+  <!-- Red Rounded Badge for '24' -->
+  <rect x="146" y="9" width="46" height="33" rx="8" fill="#E52328"/>
+  <!-- '24' in White -->
+  <text x="169" y="34" text-anchor="middle" font-family="'Sora', 'Inter', -apple-system, sans-serif" font-weight="800" font-size="22" letter-spacing="-0.02em" fill="#FFFFFF">24</text>
+</svg>
