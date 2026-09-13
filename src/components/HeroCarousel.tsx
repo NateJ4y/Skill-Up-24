@@ -4,8 +4,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 interface Slide {
   id: number;
   eyebrow: string;
-  headlineMain: string;
-  headlineHighlight: string;
+  headline: string;
+  subheadline: string;
   description: string;
   primaryCtaText: string;
   primaryCtaLink: string;
@@ -19,8 +19,8 @@ const slides: Slide[] = [
   {
     id: 1,
     eyebrow: 'Corporate Training & Consultancy · Zimbabwe & Africa',
-    headlineMain: 'Develop Better Leaders.',
-    headlineHighlight: 'Drive Real Results.',
+    headline: 'DEVELOP BETTER LEADERS',
+    subheadline: 'Drive Real Results',
     description: 'Outcome-focused corporate training designed to close critical performance gaps and drive measurable business growth.',
     primaryCtaText: 'Take the Free Performance Audit',
     primaryCtaLink: '#audit',
@@ -32,8 +32,8 @@ const slides: Slide[] = [
   {
     id: 2,
     eyebrow: 'Supervisory Excellence · Accountability & Culture',
-    headlineMain: 'Equip Supervisors.',
-    headlineHighlight: 'Elevate Team Execution.',
+    headline: 'EQUIP SUPERVISORS',
+    subheadline: 'Elevate Team Execution',
     description: 'Practical, scenario-based training that turns supervisors into confident, accountable team leaders.',
     primaryCtaText: 'Book a Free Consultation',
     primaryCtaLink: '#contact',
@@ -45,8 +45,8 @@ const slides: Slide[] = [
   {
     id: 3,
     eyebrow: 'Customer Experience & Sales · Frontline Retention',
-    headlineMain: 'Delight Customers.',
-    headlineHighlight: 'Close More Deals.',
+    headline: 'DELIGHT CUSTOMERS',
+    subheadline: 'Close More Deals',
     description: 'Proven CX and sales methodologies that eliminate service complaints and accelerate revenue conversion.',
     primaryCtaText: 'Take the Free Performance Audit',
     primaryCtaLink: '#audit',
@@ -117,9 +117,8 @@ export const HeroCarousel: React.FC = () => {
       <div className="container hero-content">
         <div className="hero-text" key={activeSlide.id}>
           <p className="hero-eyebrow">{activeSlide.eyebrow}</p>
-          <h1 className="hero-headline">
-            {activeSlide.headlineMain} <em>{activeSlide.headlineHighlight}</em>
-          </h1>
+          <h1 className="hero-headline">{activeSlide.headline}</h1>
+          <p className="hero-subheadline">{activeSlide.subheadline}</p>
           <p className="hero-sub">{activeSlide.description}</p>
           <div className="hero-actions">
             <a href={activeSlide.primaryCtaLink} className="btn btn-primary">
@@ -135,8 +134,9 @@ export const HeroCarousel: React.FC = () => {
         <div
           style={{
             position: 'absolute',
-            bottom: '24px',
-            right: '36px',
+            bottom: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
             display: 'flex',
             alignItems: 'center',
             gap: '12px',

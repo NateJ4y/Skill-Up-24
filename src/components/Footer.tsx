@@ -3,7 +3,7 @@ import { SkillUpLogo } from './SkillUpLogo';
 
 export const Footer: React.FC = () => {
   return (
-    <footer>
+    <footer className="footer">
       <div className="container footer-content">
         <div className="footer-top">
           <div className="footer-brand">

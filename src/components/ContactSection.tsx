@@ -1,4 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import {
+  User,
+  Mail,
+  Building2,
+  Briefcase,
+  Phone,
+  Compass,
+  ChevronDown,
+  ArrowRight,
+  ShieldCheck,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  Sparkles,
+  Check,
+  RotateCcw
+} from 'lucide-react';
 import { AuditResult } from '../types';
 import { submitConsultationRequest } from '../services/leadService';
 
@@ -78,12 +96,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     };
     const key = fieldMap[id] || id;
     setFormData((prev) => ({ ...prev, [key]: value }));
+    if (errorMsg) setErrorMsg('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.organisation) {
-      setErrorMsg('Please complete all required fields.');
+    if (!formData.name.trim() || !formData.email.trim() || !formData.organisation.trim()) {
+      setErrorMsg('Please complete all required fields (Name, Work Email, and Organisation).');
       return;
     }
 
@@ -92,13 +111,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
     try {
       await submitConsultationRequest({
-        name: formData.name,
-        email: formData.email,
-        organisation: formData.organisation,
-        jobTitle: formData.role,
-        phone: formData.phone,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        organisation: formData.organisation.trim(),
+        jobTitle: formData.role.trim(),
+        phone: formData.phone.trim(),
         programmeInterest: formData.interest,
-        notes: formData.message,
+        notes: formData.message.trim(),
         source: auditResult ? 'Audit Follow-up' : 'Website Contact Form'
       });
 
@@ -107,205 +126,363 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
         onSuccess();
       }
     } catch {
-      setErrorMsg('Unable to submit enquiry. Please try again or email us directly.');
+      setErrorMsg('Unable to submit enquiry. Please try again or email us directly at info@skillup24.co.zw');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section className="contact" id="contact">
+    <section className="contact" id="contact" style={{ padding: '90px 0', background: 'var(--ice)' }}>
       <div className="container">
-        <div className="contact-grid">
+        <div className="contact-grid" style={{ alignItems: 'start' }}>
+          {/* Left Column: Context & Contact Details */}
           <div className="contact-info">
-            <p className="section-label">Get in Touch</p>
-            <h2>Let&apos;s talk about what your team needs</h2>
-            <p>
-              Whether you have a specific programme in mind or just know something needs to improve — we&apos;re ready to listen.
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-[#18933E] bg-[#EBF8EF] border border-[#22B24C]/25 mb-4">
+              <Sparkles className="w-3.5 h-3.5" />
+              Direct Advisory Access
+            </span>
+            <h2 style={{ fontSize: 'clamp(1.85rem, 3.5vw, 2.4rem)', lineHeight: 1.2, fontWeight: 800, color: 'var(--navy)', marginBottom: '16px' }}>
+              Let&apos;s talk about what your team needs
+            </h2>
+            <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: 'var(--slate)', marginBottom: '32px' }}>
+              Whether you have a specific programme in mind or just know something in team performance needs to improve — we&apos;re ready to listen and build a bespoke solution.
             </p>
 
-            <div className="contact-details">
-              <div className="cd-item">
-                <div className="cd-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="contact-details" style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '36px' }}>
+              <div className="cd-item flex items-center gap-3.5 p-3.5 rounded-xl bg-white border border-gray-200/80 shadow-xs">
+                <div className="cd-icon w-10 h-10 rounded-lg bg-[#EBF8EF] text-[#22B24C] flex items-center justify-center shrink-0">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
                 </div>
                 <div>
-                  <strong>Location</strong>
-                  <span>Harare, Zimbabwe · Delivery Africa-Wide</span>
+                  <strong style={{ display: 'block', fontSize: '0.85rem', color: 'var(--navy)' }}>Office &amp; Hub</strong>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--slate)' }}>Harare, Zimbabwe · Programmes Delivered Africa-Wide</span>
                 </div>
               </div>
 
-              <div className="cd-item">
-                <div className="cd-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                  </svg>
+              <div className="cd-item flex items-center gap-3.5 p-3.5 rounded-xl bg-white border border-gray-200/80 shadow-xs">
+                <div className="cd-icon w-10 h-10 rounded-lg bg-[#EBF8EF] text-[#22B24C] flex items-center justify-center shrink-0">
+                  <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <strong>Email</strong>
-                  <span>info@skillup24.co.zw</span>
+                  <strong style={{ display: 'block', fontSize: '0.85rem', color: 'var(--navy)' }}>Email Inquiries</strong>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--slate)' }}>info@skillup24.co.zw</span>
                 </div>
               </div>
 
-              <div className="cd-item">
-                <div className="cd-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                  </svg>
+              <div className="cd-item flex items-center gap-3.5 p-3.5 rounded-xl bg-white border border-gray-200/80 shadow-xs">
+                <div className="cd-icon w-10 h-10 rounded-lg bg-[#EBF8EF] text-[#22B24C] flex items-center justify-center shrink-0">
+                  <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <strong>Phone &amp; WhatsApp</strong>
-                  <span>+263 (0) 77 000 0000</span>
+                  <strong style={{ display: 'block', fontSize: '0.85rem', color: 'var(--navy)' }}>Phone &amp; WhatsApp</strong>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--slate)' }}>+263 (0) 77 000 0000</span>
                 </div>
               </div>
             </div>
 
-            <div className="contact-promise">
-              <strong>Our Commitment</strong>
-              <p>
-                We respond within 24 hours. No high-pressure sales — just a focused conversation about whether we&apos;re the right fit for your organisation.
+            <div
+              className="contact-promise py-5 pr-5 pl-7 sm:pl-8 rounded-2xl bg-white border border-gray-200/90 shadow-xs"
+              style={{ borderLeft: '4px solid #22B24C' }}
+            >
+              <div className="flex items-center gap-2.5 mb-2">
+                <CheckCircle2 className="w-4 h-4 text-[#22B24C] shrink-0" />
+                <strong style={{ fontSize: '0.92rem', color: 'var(--navy)', fontWeight: 700 }}>
+                  Our Executive Commitment
+                </strong>
+              </div>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'var(--slate)', margin: 0 }}>
+                We respond within 24 hours. No aggressive sales pitches — simply an objective discussion on whether our behavioral methodologies match your strategic objectives.
               </p>
             </div>
           </div>
 
-          <div className="contact-form-wrap">
+          {/* Right Column: Redesigned Professional Form Card */}
+          <div className="consultation-card">
             {!submitted ? (
-              <form className="contact-form" id="contactForm" onSubmit={handleSubmit}>
+              <div>
+                {/* Form Header */}
+                <div className="consultation-header">
+                  <div className="consultation-header-top">
+                    <h3 className="consultation-title">
+                      Request a Consultation
+                    </h3>
+                    <span className="consultation-badge">
+                      <span className="consultation-badge-dot"></span>
+                      24h Response
+                    </span>
+                  </div>
+                  <p className="consultation-subtitle">
+                    Provide your team details below. A senior learning facilitator will reach out to understand your goals.
+                  </p>
+
+                  {/* Context Pill if coming from Programme or Audit */}
+                  {preselectedProgramme && (
+                    <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 font-medium">
+                      <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Inquiring about: <strong>{preselectedProgramme}</strong></span>
+                    </div>
+                  )}
+                  {auditResult && !preselectedProgramme && (
+                    <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-900 font-medium">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
+                      <span>Audit Score Attached: <strong>{auditResult.percentage}% · {auditResult.headline}</strong></span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Error Banner */}
                 {errorMsg && (
-                  <div style={{ color: '#C0392B', fontSize: '0.85rem', marginBottom: '14px' }}>
-                    {errorMsg}
+                  <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-start gap-2.5">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-600" />
+                    <span>{errorMsg}</span>
                   </div>
                 )}
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="cf-name">Your Name *</label>
-                    <input
-                      type="text"
-                      id="cf-name"
-                      required
-                      placeholder="Full Name"
-                      value={formData.name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="cf-email">Work Email *</label>
-                    <input
-                      type="email"
-                      id="cf-email"
-                      required
-                      placeholder="name@organisation.com"
-                      value={formData.email}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="cf-org">Organisation *</label>
-                    <input
-                      type="text"
-                      id="cf-org"
-                      required
-                      placeholder="Company or Institution"
-                      value={formData.organisation}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="cf-role">Your Role</label>
-                    <input
-                      type="text"
-                      id="cf-role"
-                      placeholder="e.g. HR Director, Operations Manager"
-                      value={formData.role}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
+                <form className="consultation-form" id="contactForm" onSubmit={handleSubmit} noValidate>
+                  {/* Row 1: Name & Work Email */}
+                  <div className="consultation-grid-2">
+                    <div className="consultation-field">
+                      <label htmlFor="cf-name" className="consultation-label">
+                        Your Name <span className="consultation-req">*</span>
+                      </label>
+                      <div className="consultation-input-wrap">
+                        <span className="consultation-input-icon">
+                          <User className="w-4 h-4" />
+                        </span>
+                        <input
+                          type="text"
+                          id="cf-name"
+                          required
+                          placeholder="e.g. Tendai Moyo"
+                          value={formData.name}
+                          onChange={handleChange}
+                          className="consultation-input"
+                        />
+                      </div>
+                    </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="cf-phone">Phone / WhatsApp</label>
-                    <input
-                      type="tel"
-                      id="cf-phone"
-                      placeholder="+263..."
-                      value={formData.phone}
-                      onChange={handleChange}
-                    />
+                    <div className="consultation-field">
+                      <label htmlFor="cf-email" className="consultation-label">
+                        Work Email <span className="consultation-req">*</span>
+                      </label>
+                      <div className="consultation-input-wrap">
+                        <span className="consultation-input-icon">
+                          <Mail className="w-4 h-4" />
+                        </span>
+                        <input
+                          type="email"
+                          id="cf-email"
+                          required
+                          placeholder="name@organisation.com"
+                          value={formData.email}
+                          onChange={handleChange}
+                          className="consultation-input"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="cf-interest">Area of Interest</label>
-                    <select
-                      id="cf-interest"
-                      value={formData.interest}
+
+                  {/* Row 2: Organisation & Role */}
+                  <div className="consultation-grid-2">
+                    <div className="consultation-field">
+                      <label htmlFor="cf-org" className="consultation-label">
+                        Organisation <span className="consultation-req">*</span>
+                      </label>
+                      <div className="consultation-input-wrap">
+                        <span className="consultation-input-icon">
+                          <Building2 className="w-4 h-4" />
+                        </span>
+                        <input
+                          type="text"
+                          id="cf-org"
+                          required
+                          placeholder="Company or Institution"
+                          value={formData.organisation}
+                          onChange={handleChange}
+                          className="consultation-input"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="consultation-field">
+                      <label htmlFor="cf-role" className="consultation-label">
+                        Your Role
+                      </label>
+                      <div className="consultation-input-wrap">
+                        <span className="consultation-input-icon">
+                          <Briefcase className="w-4 h-4" />
+                        </span>
+                        <input
+                          type="text"
+                          id="cf-role"
+                          placeholder="e.g. HR Director, Operations Head"
+                          value={formData.role}
+                          onChange={handleChange}
+                          className="consultation-input"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 3: Phone & Area of Interest */}
+                  <div className="consultation-grid-2">
+                    <div className="consultation-field">
+                      <label htmlFor="cf-phone" className="consultation-label">
+                        Phone / WhatsApp
+                      </label>
+                      <div className="consultation-input-wrap">
+                        <span className="consultation-input-icon">
+                          <Phone className="w-4 h-4" />
+                        </span>
+                        <input
+                          type="tel"
+                          id="cf-phone"
+                          placeholder="+263 77 000 0000"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          className="consultation-input"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="consultation-field">
+                      <label htmlFor="cf-interest" className="consultation-label">
+                        Area of Interest
+                      </label>
+                      <div className="consultation-input-wrap">
+                        <span className="consultation-input-icon">
+                          <Compass className="w-4 h-4" />
+                        </span>
+                        <select
+                          id="cf-interest"
+                          value={formData.interest}
+                          onChange={handleChange}
+                          className="consultation-select"
+                        >
+                          <option value="">Select an area...</option>
+                          <option value="leadership">Leadership &amp; Supervisory Skills</option>
+                          <option value="cx">Customer Experience &amp; Service</option>
+                          <option value="sales">Sales Performance &amp; Closing</option>
+                          <option value="team">Team Collaboration &amp; Performance</option>
+                          <option value="culture">Workplace Culture &amp; Accountability</option>
+                          <option value="strategy">Strategy &amp; Organisation Development</option>
+                          <option value="audit-followup">Follow-up on Audit Results</option>
+                          <option value="other">Other / Custom In-House Programme</option>
+                        </select>
+                        <ChevronDown className="consultation-select-arrow" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Challenge Textarea */}
+                  <div className="consultation-field">
+                    <label htmlFor="cf-message" className="consultation-label">
+                      Tell us about the challenge you&apos;re trying to solve
+                    </label>
+                    <textarea
+                      id="cf-message"
+                      rows={3}
+                      placeholder="What is happening in your team or organisation right now that you'd like to change or improve?"
+                      value={formData.message}
                       onChange={handleChange}
+                      className="consultation-textarea"
+                    ></textarea>
+                  </div>
+
+                  {/* Submit Button */}
+                  <div>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="consultation-submit-btn"
                     >
-                      <option value="">Select an area...</option>
-                      <option value="leadership">Leadership &amp; Supervisory Skills</option>
-                      <option value="cx">Customer Experience &amp; Service</option>
-                      <option value="sales">Sales Performance &amp; Closing</option>
-                      <option value="team">Team Collaboration &amp; Performance</option>
-                      <option value="culture">Workplace Culture &amp; Accountability</option>
-                      <option value="strategy">Strategy &amp; Organisation Development</option>
-                      <option value="audit-followup">Follow-up on Audit Results</option>
-                      <option value="other">Other / Not Sure Yet</option>
-                    </select>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          <span>Sending Request...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Request a Consultation Call</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Micro-Trust Badges */}
+                  <div className="consultation-trust-bar">
+                    <span className="consultation-trust-item">
+                      <ShieldCheck className="consultation-trust-icon" />
+                      100% Confidential
+                    </span>
+                    <span className="consultation-trust-item">
+                      <Clock className="consultation-trust-icon" />
+                      24h Response
+                    </span>
+                    <span className="consultation-trust-item">
+                      <CheckCircle2 className="consultation-trust-icon" />
+                      No-Obligation Discussion
+                    </span>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              /* Success State */
+              <div className="py-6 px-2 text-center">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 text-[#22B24C] flex items-center justify-center mx-auto mb-5 shadow-inner">
+                  <Check className="w-8 h-8 stroke-[2.5]" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2 tracking-tight">
+                  Thank You, {formData.name.split(' ')[0] || 'Partner'}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 max-w-md mx-auto mb-6 leading-relaxed">
+                  We have received your enquiry for <strong>{formData.organisation}</strong>. A senior learning facilitator will review your requirements and reach out within 24 hours.
+                </p>
+
+                {/* What Happens Next steps */}
+                <div className="bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 text-left max-w-md mx-auto mb-6">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-gray-700 mb-3">
+                    What happens next:
+                  </h4>
+                  <div className="space-y-2.5 text-xs sm:text-sm text-gray-600">
+                    <div className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+                      <span>Our practice lead reviews your specific team challenge and objectives.</span>
+                    </div>
+                    <div className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                      <span>We reach out via email or WhatsApp to schedule a brief 20-minute discovery call.</span>
+                    </div>
+                    <div className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                      <span>You receive a tailored programme outline with measurable outcomes and pricing.</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="cf-message">Tell us about the challenge you&apos;re trying to solve</label>
-                  <textarea
-                    id="cf-message"
-                    rows={4}
-                    placeholder="What is happening in your team or organisation right now that you'd like to change?"
-                    value={formData.message}
-                    onChange={handleChange}
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={isSubmitting}
-                  style={{ width: '100%', fontSize: '1rem', padding: '16px' }}
-                >
-                  {isSubmitting ? 'Sending Request...' : 'Request a Consultation Call'}
-                </button>
-
-                <p
-                  style={{
-                    fontSize: '.75rem',
-                    color: 'var(--text-light)',
-                    textAlign: 'center',
-                    marginTop: '12px',
-                    marginBottom: 0,
-                    maxWidth: 'none'
-                  }}
-                >
-                  We treat all information confidentially. We will never share your details.
-                </p>
-              </form>
-            ) : (
-              <div className="contact-success" id="contactSuccess" style={{ display: 'block' }}>
-                <h3>Thank you — we&apos;ve received your enquiry</h3>
-                <p>
-                  A member of our team will contact you within 24 hours to arrange your discovery call.
-                </p>
                 <button
                   type="button"
-                  onClick={() => setSubmitted(false)}
-                  className="btn btn-ghost"
-                  style={{ marginTop: '20px', color: 'var(--navy)', borderColor: 'var(--ice-2)' }}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData({
+                      name: '',
+                      email: '',
+                      organisation: '',
+                      role: '',
+                      phone: '',
+                      interest: '',
+                      message: ''
+                    });
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors cursor-pointer shadow-xs"
                 >
-                  Send another message
+                  <RotateCcw className="w-4 h-4" />
+                  Submit Another Enquiry
                 </button>
               </div>
             )}
@@ -315,3 +492,4 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     </section>
   );
 };
+
