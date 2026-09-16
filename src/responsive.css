@@ -1,0 +1,607 @@
+/* Responsive hardening layer
+   Loaded after the main stylesheet so layout fixes remain isolated and easy to maintain.
+*/
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+main,
+section,
+header,
+footer,
+nav,
+article,
+aside,
+.container {
+  min-width: 0;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent long URLs, email addresses and labels from forcing horizontal scroll. */
+p,
+a,
+span,
+li,
+label,
+button,
+input,
+textarea,
+select,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: anywhere;
+}
+
+/* Keep form controls inside their parent grid/flex item. */
+input,
+select,
+textarea {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* ---------- Large desktop / laptop ---------- */
+@media (max-width: 1199px) {
+  :root {
+    --max-w: 1120px;
+  }
+
+  .container,
+  .nav-inner {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .nav-inner {
+    gap: 28px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .about-grid,
+  .process-grid {
+    gap: 52px;
+  }
+}
+
+/* ---------- Tablet / small laptop ---------- */
+@media (max-width: 1023px) {
+  :root {
+    --max-w: 100%;
+  }
+
+  .container,
+  .nav-inner {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .mobile-menu {
+    padding: 92px 24px 32px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .hero {
+    min-height: 760px;
+  }
+
+  .hero-content {
+    padding-top: 112px;
+    padding-bottom: 56px;
+  }
+
+  .hero-text {
+    max-width: 760px;
+  }
+
+  .about,
+  .process,
+  .industries {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .about-grid,
+  .process-grid,
+  .industries-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .about-images {
+    min-height: 500px;
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .process-image {
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 28px;
+  }
+
+  .process-img-float {
+    left: 0;
+  }
+
+  .gallery-track {
+    height: 240px;
+  }
+
+  .stat-item {
+    min-width: 120px;
+  }
+
+  .stat-divider {
+    height: 34px;
+  }
+}
+
+/* ---------- Tablet portrait ---------- */
+@media (max-width: 767px) {
+  .container,
+  .nav-inner {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .nav-inner {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .nav-logo img,
+  .nav-logo svg {
+    max-height: 42px;
+    width: auto;
+  }
+
+  .mobile-menu {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-content {
+    min-height: 650px;
+    padding-top: 108px;
+    padding-bottom: 44px;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-headline {
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1.08;
+  }
+
+  .hero-subheadline {
+    font-size: clamp(1.2rem, 5.5vw, 1.65rem);
+  }
+
+  .hero-sub {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    max-width: 48ch;
+  }
+
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 16px 0;
+    gap: 0;
+  }
+
+  .stat-item {
+    min-width: 0;
+    padding: 12px 8px;
+  }
+
+  .stat-item strong {
+    font-size: 1.55rem;
+  }
+
+  .stat-item span {
+    font-size: 0.68rem;
+    line-height: 1.35;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .about,
+  .process,
+  .industries {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .section-header,
+  .industries-header {
+    margin-bottom: 36px;
+  }
+
+  .section-header p,
+  .industries-header p {
+    font-size: 0.98rem;
+  }
+
+  .about-grid,
+  .process-grid,
+  .industries-layout {
+    gap: 36px;
+  }
+
+  .about-images {
+    min-height: 390px;
+    max-width: 560px;
+  }
+
+  .about-img-main-wrap {
+    width: 82%;
+  }
+
+  .about-img-secondary-wrap {
+    bottom: 14px;
+    width: 48%;
+  }
+
+  .about-img-badge {
+    top: 18px;
+    padding: 12px 14px;
+    max-width: 145px;
+  }
+
+  .industry-mosaic {
+    gap: 8px;
+  }
+
+  .mosaic-cell {
+    height: 145px;
+  }
+
+  .gallery-track {
+    height: 190px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .gallery-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-cell {
+    flex: 0 0 55vw;
+    scroll-snap-align: start;
+  }
+
+  .process-image {
+    padding-left: 20px;
+    padding-right: 8px;
+  }
+
+  .process-img-float {
+    width: 64%;
+    bottom: -18px;
+  }
+
+  .process-img-float img {
+    height: 120px;
+  }
+
+  .process-float-label {
+    padding: 10px 12px;
+  }
+
+  .geo-card {
+    padding: 20px;
+  }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 559px) {
+  .container,
+  .nav-inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .mobile-menu {
+    padding: 82px 16px 24px;
+  }
+
+  .mobile-link {
+    font-size: 1.15rem;
+    padding: 13px 0;
+  }
+
+  .mobile-link-cta {
+    margin-top: 14px;
+  }
+
+  .hero-content {
+    min-height: 600px;
+    padding-top: 96px;
+    padding-bottom: 36px;
+  }
+
+  .hero-eyebrow {
+    max-width: 100%;
+    font-size: 0.67rem;
+    padding: 6px 11px;
+    letter-spacing: 0.07em;
+  }
+
+  .hero-headline {
+    font-size: clamp(1.8rem, 10vw, 2.5rem);
+  }
+
+  .hero-subheadline {
+    font-size: clamp(1.05rem, 6vw, 1.4rem);
+  }
+
+  .hero-sub {
+    font-size: 0.92rem;
+    margin-bottom: 24px;
+  }
+
+  .btn {
+    min-height: 48px;
+    padding: 12px 18px;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-item strong {
+    font-size: 1.35rem;
+  }
+
+  .stat-item span {
+    font-size: 0.61rem;
+  }
+
+  .about,
+  .process,
+  .industries {
+    padding-top: 52px;
+    padding-bottom: 52px;
+  }
+
+  .section-header h2,
+  .industries-header h2 {
+    line-height: 1.12;
+  }
+
+  .about-images {
+    min-height: 330px;
+  }
+
+  .about-img-badge {
+    font-size: 0.78rem;
+    padding: 10px 11px;
+  }
+
+  .industry-mosaic {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mosaic-cell {
+    height: 120px;
+  }
+
+  .mosaic-label {
+    font-size: 0.68rem;
+    padding: 12px 9px 9px;
+  }
+
+  .gallery-track {
+    height: 155px;
+  }
+
+  .gallery-cell {
+    flex-basis: 72vw;
+  }
+
+  .process-step {
+    gap: 12px;
+    padding: 18px 0;
+  }
+
+  .process-num {
+    min-width: 30px;
+    font-size: 1.15rem;
+  }
+
+  .process-step-text p {
+    font-size: 0.82rem;
+  }
+
+  .process-img-float {
+    width: 72%;
+  }
+
+  .process-img-float img {
+    height: 100px;
+  }
+
+  .geo-card {
+    padding: 16px;
+  }
+
+  .geo-item {
+    gap: 11px;
+    padding: 12px 0;
+  }
+
+  .geo-item strong {
+    font-size: 0.82rem;
+  }
+
+  .geo-item span {
+    font-size: 0.72rem;
+  }
+}
+
+/* ---------- Very small phones ---------- */
+@media (max-width: 379px) {
+  .container,
+  .nav-inner {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+  .hero-content {
+    padding-top: 88px;
+  }
+
+  .hero-headline {
+    font-size: 1.72rem;
+  }
+
+  .hero-subheadline {
+    font-size: 1rem;
+  }
+
+  .hero-sub {
+    font-size: 0.88rem;
+  }
+
+  .hero-actions .btn {
+    font-size: 0.86rem;
+  }
+
+  .stat-item strong {
+    font-size: 1.2rem;
+  }
+
+  .stat-item span {
+    font-size: 0.56rem;
+  }
+
+  .about-images {
+    min-height: 285px;
+  }
+
+  .about-img-badge {
+    max-width: 118px;
+    padding: 8px 9px;
+  }
+
+  .mosaic-cell {
+    height: 105px;
+  }
+}
+
+/* ---------- Short landscape phones ---------- */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 560px) {
+  .hero-content {
+    min-height: 540px;
+    padding-top: 90px;
+    padding-bottom: 28px;
+  }
+
+  .hero-headline {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+  }
+
+  .hero-sub {
+    margin-bottom: 18px;
+  }
+
+  .hero-stats {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+/* ---------- Accessibility / reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Prevent hover-only transforms from causing accidental movement on touch devices. */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover,
+  .sol-card:hover,
+  .gallery-cell:hover img,
+  .mosaic-cell:hover img {
+    transform: none;
+  }
+}
